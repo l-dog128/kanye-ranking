@@ -7,7 +7,7 @@
 /* eslint-disable no-unused-vars */
 // import data from "./tracksSmall.json";
 import data from "./playlistinfo.json" assert { type: "json" };
-import { DeconstructJSON, GetInfoForList, GetMagicNumber } from "./jsonStuff";
+import { DeconstructJSON, GetInfoForList, GetMagicNumber } from "./jsonStuff.js";
 
 const wrapper = document.querySelector(".link");
 const currentSong = "";
