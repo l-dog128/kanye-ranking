@@ -6,7 +6,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 // import data from "./tracksSmall.json";
-import data from './playlistinfo.json'
+import data from "./playlistinfo.json" assert { type: "json" };
 import { DeconstructJSON, GetInfoForList, GetMagicNumber } from "./jsonStuff";
 
 const wrapper = document.querySelector(".link");
@@ -21,11 +21,11 @@ const AddTierEvents = (() => {
   const tierButtons = document.querySelectorAll(".tier-button");
   tierButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const id = `#${  button.innerHTML}`;
+      const id = `#${button.innerHTML}`;
       const counter = document.querySelector(id);
       // update saved data
       counter.innerHTML = Number(counter.innerHTML) + 1;
-      localStorage.setItem(`count: ${  counter.id}`, counter.innerHTML);
+      localStorage.setItem(`count: ${counter.id}`, counter.innerHTML);
 
       RemoveCurrentSong();
       AddToTierList(id);
@@ -54,7 +54,7 @@ const AddExpansionButtons = (() => {
 const AddToTierList = (id, Title, Src) => {
   // when button is clicked
   if (Title === undefined && Src === undefined) {
-    const songWrapper = document.querySelector(`${id  }-tier`);
+    const songWrapper = document.querySelector(`${id}-tier`);
     const songDiv = document.createElement("div");
     songDiv.classList.add("song");
     const info = GetInfoForList(
@@ -74,7 +74,7 @@ const AddToTierList = (id, Title, Src) => {
   }
   // when loaded in
   else {
-    const songWrapper = document.querySelector(`${id  }-tier`);
+    const songWrapper = document.querySelector(`${id}-tier`);
     const songDiv = document.createElement("div");
     songDiv.classList.add("song");
 
@@ -116,17 +116,16 @@ const GetNextSong = (index) => {
   const iframe = document.createElement("iframe");
   iframe.style.borderRadius = "12px";
   iframe.style.border = "none";
-  try{
+  try {
     iframe.src = DeconstructJSON(data[index]);
-  }
-  catch{
+  } catch {
     GetTier("S");
     GetTier("A");
     GetTier("B");
     GetTier("C");
     GetTier("D");
   }
-  
+
   iframe.style.width = "100%";
   iframe.style.height = "352px";
   iframe.allowFullscreen = "";
@@ -153,27 +152,25 @@ const SaveTier = (img, TierID) => {
   // use current song count as ID
   const ID = localStorage.getItem("song-count");
   // save title
-  localStorage.setItem(`${ID  }title`, img.title);
+  localStorage.setItem(`${ID}title`, img.title);
   // save img src
-  localStorage.setItem(`${ID  }src`, img.src);
+  localStorage.setItem(`${ID}src`, img.src);
 
   // save tier
-  localStorage.setItem(`${ID  }tier-`, tierString);
+  localStorage.setItem(`${ID}tier-`, tierString);
 };
 
 const LoadTier = (songCount) => {
-  const title = localStorage.getItem(`${songCount.toString()  }title`);
-  const src = localStorage.getItem(`${songCount.toString()  }src`);
-  const tier = `#${  localStorage.getItem(`${songCount.toString()  }tier-`)}`;
+  const title = localStorage.getItem(`${songCount.toString()}title`);
+  const src = localStorage.getItem(`${songCount.toString()}src`);
+  const tier = `#${localStorage.getItem(`${songCount.toString()}tier-`)}`;
 
   AddToTierList(tier, title, src);
 };
 
 function GetTier(id) {
   const songsArray = [];
-  const songs = document.querySelector(
-    `#${  id.toUpperCase()  }-tier`
-  ).childNodes;
+  const songs = document.querySelector(`#${id.toUpperCase()}-tier`).childNodes;
   for (let i = 0; i < songs.length; i++) {
     songsArray.push(songs[i].childNodes[0].title);
   }
@@ -192,7 +189,7 @@ const Start = (() => {
     const countList = document.querySelectorAll(".count");
     countList.forEach((counter) => {
       counter.innerHTML = "0";
-      localStorage.setItem(`count: ${  counter.id}`, counter.innerHTML);
+      localStorage.setItem(`count: ${counter.id}`, counter.innerHTML);
     });
 
     // totals
@@ -208,7 +205,7 @@ const Start = (() => {
     // load all totals and shit
     const countList = document.querySelectorAll(".count");
     countList.forEach((counter) => {
-      counter.innerHTML = localStorage.getItem(`count: ${  counter.id}`);
+      counter.innerHTML = localStorage.getItem(`count: ${counter.id}`);
     });
 
     // totals
